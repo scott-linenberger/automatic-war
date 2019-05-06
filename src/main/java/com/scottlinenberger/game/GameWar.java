@@ -11,6 +11,7 @@ import com.scottlinenberger.cards.PlayingCard;
 import com.scottlinenberger.constants.GameConstants;
 import com.scottlinenberger.error.GameError;
 import com.scottlinenberger.game.player.Player;
+import com.scottlinenberger.out.WarPrinter;
 import com.scottlinenberger.utils.CardUtils;
 import com.scottlinenberger.utils.DeckUtils;
 
@@ -57,8 +58,7 @@ public class GameWar {
       return;
     }
 
-    System.out.println("\nRound " + indexRound + ": ");
-    System.out.println("=======================================");
+    WarPrinter.printRoundStart(indexRound);
 
     playNextCards();
 
@@ -86,19 +86,19 @@ public class GameWar {
 
     switch (comparisonResult) {
       case 0:
-        printWarMessage();
+        WarPrinter.printMessageWar();
         doWar();
         break;
 
       case 1:
         /* clear the war flag */
-        printRoundWinner(player1);
+        WarPrinter.printRoundWinner(player1);
         player1.claimCards(stackPotOfCards);
         break;
 
       case -1:
         /* clear the war flag */
-        printRoundWinner(player2);
+        WarPrinter.printRoundWinner(player2);
         player2.claimCards(stackPotOfCards);
         break;
 
@@ -109,13 +109,7 @@ public class GameWar {
     System.out.println("");
   }
   
-  private void printRoundWinner(Player player) {
-    System.out.println("\nRound Winner: + " + player.getName() + " +");
-  }
-  
-  private void printWarMessage() {
-    System.out.println("\n >>>>> WAR <<<<<\n");
-  }
+
   
   private void doWar() {
     /* get cards from each player */
